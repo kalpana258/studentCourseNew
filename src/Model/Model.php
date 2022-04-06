@@ -50,7 +50,7 @@ class Model{
           
             if($exception->getCode() == 23000){
                
-                throw new CustomException("Record already exists. Phone number already exists");
+                throw new CustomException("Record already exists. Phone number/Email already exists");
             }else{
                 throw new CustomException("Error in saving Data");
             }
