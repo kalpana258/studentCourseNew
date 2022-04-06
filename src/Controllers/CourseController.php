@@ -17,65 +17,66 @@ class CourseController
          $this->course = new Course();
     }
   
-    public function validate($requestData){
+    public function validate($requestData)
+    {
         $this->validator->name('Course Name')->value($requestData['courseName'])
-        ->pattern([
-            ['name'=>'required','value'=>'required'],
+            ->pattern(
+                [
+                ['name'=>'required','value'=>'required'],
       
-           ]);
+                ]
+            );
 
-   $this->validator->name('Course Details')->value($requestData['courseDetails'])
-        ->pattern([
-            ['name'=>'required','value'=>'required']
+        $this->validator->name('Course Details')->value($requestData['courseDetails'])
+            ->pattern(
+                [
+                ['name'=>'required','value'=>'required']
          
-           ]);
+                ]
+            );
     }
      /**
-     * This method create the course
-     *
-     *
-     */
+      * This method create the course
+      */
     public function createCourse()
     {
         try {
-         if (isset($_POST['submit'])) {
-             $this->validate($_POST);
-             if(!empty($this->validator->getErrors())){
+            if (isset($_POST['submit'])) {
+                $this->validate($_POST);
+                if(!empty($this->validator->getErrors())) {
                     $view = new Views('course/index.php');
-                    $view->assign('errors',$this->validator->getErrors());
-                     $view->assign('postData',$_POST);
+                    $view->assign('errors', $this->validator->getErrors());
+                     $view->assign('postData', $_POST);
                     return;
-             }else{
-                $_POST['courseName'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
-                $_POST['courseDetails'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
-                  $_POST['courseDetails']  = filter_var($_POST['courseDetails'], FILTER_SANITIZE_SPECIAL_CHARS);
+                }else{
+                    $_POST['courseName'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
+                    $_POST['courseDetails'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
+                     $_POST['courseDetails']  = filter_var($_POST['courseDetails'], FILTER_SANITIZE_SPECIAL_CHARS);
             
-                $save = $this->course->add($_POST);
-                if ($save) {
-                     $view = new Views('course/index.php');
-                    $view->assign('success', 'Data saved successfully.');
-                    return;
-                } else {
-                    $view = new Views('course/index.php');
-                    $view->assign('errors', 'There is issue in saving the data in Database. Please try again.');
-                    $view->assign('postData',$_POST);
-                    return ;
+                    $save = $this->course->add($_POST);
+                    if ($save) {
+                        $view = new Views('course/index.php');
+                        $view->assign('success', 'Data saved successfully.');
+                        return;
+                    } else {
+                        $view = new Views('course/index.php');
+                        $view->assign('errors', 'There is issue in saving the data in Database. Please try again.');
+                        $view->assign('postData', $_POST);
+                        return ;
+                    }
                 }
-             }
           
-         }
-           $view = new Views('course/index.php');
+            }
+            $view = new Views('course/index.php');
          
-           return;
+            return;
         } catch (CustomException $e) {
             echo   $e->customFunction();
         }
     }
      /**
-     * This method list all the courses
-     *
-     *
-     */
+      * This method list all the courses
+      */
     public function list()
     {
         try {
@@ -85,10 +86,8 @@ class CourseController
         }
     }
       /**
-     * This method loads view for the list
-     *
-     *
-     */
+       * This method loads view for the list
+       */
     public function delete()
     {
         try {
@@ -101,57 +100,53 @@ class CourseController
     }
     
       /**
-     * This method edit the course
-     *
-     *
-     */
+       * This method edit the course
+       */
     public function edit()
     {
       
         try{
-        if (isset($_POST['submit'])) {
-            $this->validate($_POST);
-            if(!empty($this->validator->getErrors())){
-                   $view = new Views('course/index.php');
-                   $view->assign('errors',$this->validator->getErrors());
-                    $view->assign('postData',$_POST);
-                    $view->assign("id",$_POST['course_id']);
-                   return;
-            }else{
-               $_POST['courseName'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
-               $_POST['courseDetails'] = filter_var($_POST['courseDetails'], FILTER_SANITIZE_STRING);
-                 $_POST['courseDetails']  = filter_var($_POST['courseDetails'], FILTER_SANITIZE_SPECIAL_CHARS);
+            if (isset($_POST['submit'])) {
+                $this->validate($_POST);
+                if(!empty($this->validator->getErrors())) {
+                       $view = new Views('course/index.php');
+                       $view->assign('errors', $this->validator->getErrors());
+                    $view->assign('postData', $_POST);
+                    $view->assign("id", $_POST['course_id']);
+                       return;
+                }else{
+                    $_POST['courseName'] = filter_var($_POST['courseName'], FILTER_SANITIZE_STRING);
+                    $_POST['courseDetails'] = filter_var($_POST['courseDetails'], FILTER_SANITIZE_STRING);
+                     $_POST['courseDetails']  = filter_var($_POST['courseDetails'], FILTER_SANITIZE_SPECIAL_CHARS);
            
-               $save = $this->course->edit($_POST);
-               if ($save) {
+                    $save = $this->course->edit($_POST);
+                    if ($save) {
                 
-                    header('Location: /courseList');
+                        header('Location: /courseList');
                   
-               } else {
-                   $view = new Views('course/index.php');
-                   $view->assign('errors', ['There is issue in saving the data in Database. Please try again.']);
-                   $view->assign('postData',$_POST);
-                   $view->assign("id",$_POST['course_id']);
-                   return ;
-               }
-            }
+                    } else {
+                        $view = new Views('course/index.php');
+                        $view->assign('errors', ['There is issue in saving the data in Database. Please try again.']);
+                        $view->assign('postData', $_POST);
+                        $view->assign("id", $_POST['course_id']);
+                        return ;
+                    }
+                }
          
-        }
-        $courseData = $this->course->getById($_POST['course_id']);
-          $view = new Views('course/index.php');
-          $view->assign('postData',["courseName"=>$courseData['name'],"courseDetails"=>$courseData['details']]);
-          $view->assign("id",$_POST['course_id']);
+            }
+            $courseData = $this->course->getById($_POST['course_id']);
+            $view = new Views('course/index.php');
+            $view->assign('postData', ["courseName"=>$courseData['name'],"courseDetails"=>$courseData['details']]);
+            $view->assign("id", $_POST['course_id']);
         
-          return;
-       } catch (CustomException $e) {
-           echo   $e->customFunction();
-       }
+            return;
+        } catch (CustomException $e) {
+            echo   $e->customFunction();
+        }
     }
       /**
-     * This method list all the courses
-     *
-     *
-     */
+       * This method list all the courses
+       */
     public function getList()
     {
     
@@ -161,8 +156,8 @@ class CourseController
             $limit = $_POST['num_rows'];
             $totalcount =  count($this->course->get_total_all_records());
            
-            $total_pages = ceil ($totalcount / $limit);
-            if (!isset ($_POST['page']) ) {  
+            $total_pages = ceil($totalcount / $limit);
+            if (!isset($_POST['page']) ) {  
 
                 $page_number = 1;  
         

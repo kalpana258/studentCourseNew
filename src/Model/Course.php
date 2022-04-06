@@ -6,10 +6,11 @@ use src\Model\Model;
 
 class Course extends Model
 {
-    public function __construct(){
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
              
-	}
+    }
     public  function edit($data)
     {
       
@@ -21,8 +22,8 @@ class Course extends Model
                 ':details' =>  $data["courseDetails"],
                 ':updated' =>  date('Y-m-d H:i:s')
                 );
-           $this->update('course', $setClause, $bindingArray, $whereClause);
-           return true;
+             $this->update('course', $setClause, $bindingArray, $whereClause);
+             return true;
       
     }
 
@@ -71,13 +72,13 @@ class Course extends Model
                 ':id'       =>  $id
                 );
             $this->delete("course", $setClause, $bindArray, $whereClause);
-           }
+    }
     
     public function add($data)
     {
        
            
-            $courseCode = str_pad(mt_rand(1,999),3,'0',STR_PAD_LEFT);
+            $courseCode = str_pad(mt_rand(1, 999), 3, '0', STR_PAD_LEFT);
             $fieldList = "`name`,`course_code`, `details`, `created_at`,`updated_at`";
             $mapList = ":name,:coursecode,:details,:created_at,:updated_at";
             $bindArray= [

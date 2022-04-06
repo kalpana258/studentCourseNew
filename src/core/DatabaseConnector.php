@@ -11,7 +11,7 @@ class DatabaseConnector
     
     private function __construct()
     {
-	
+    
         $this->conn = new \PDO(
             "mysql:host={$_ENV["DB_HOST"]};
     dbname={$_ENV["DB_DATABASE"]}",
@@ -20,8 +20,8 @@ class DatabaseConnector
             array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
             )
         );
-		
-	    $this->conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        
+        $this->conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
         $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
     public static function getInstance()

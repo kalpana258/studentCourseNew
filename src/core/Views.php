@@ -12,7 +12,7 @@ class Views
     public function __construct($template)
     {
         try {
-            $file = $_SERVER['DOCUMENT_ROOT'] . '/view/' . strtolower($template) ;
+            $file = $_SERVER['DOCUMENT_ROOT'] . '/view/' . strtolower($template);
             if (file_exists($file)) {
                 $this->render = $file;
             } else {
@@ -30,11 +30,11 @@ class Views
 
     public function __destruct()
     {
-    //    var_dump('here');
+        //    var_dump('here');
         
         extract($this->data);
        
-        include($this->render);
+        include $this->render;
         
     }
 }

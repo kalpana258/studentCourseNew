@@ -21,10 +21,8 @@ class StudentCourseMappingController
     }
       
       /**
-     * This method save student course mapping
-     *
-     *
-     */
+       * This method save student course mapping
+       */
     public function createStudentCourseMapping()
     {
         try {
@@ -36,25 +34,25 @@ class StudentCourseMappingController
                 $this->validator->name('Student')->value($_POST['student'])->required('required');
                 $this->validator->name('course')->value($_POST['course'])->required('required');
                
-                if(!empty($this->validator->getErrors())){
+                if(!empty($this->validator->getErrors())) {
                     $view = new Views('studentCourseMap/mapping.php');
-                    $view->assign('errors',$this->validator->getErrors());
-                   //  $view->assign('postData',$_POST);
+                    $view->assign('errors', $this->validator->getErrors());
+                    //  $view->assign('postData',$_POST);
                      $view->assign('studentdropdown', $studentDropdown);
                      $view->assign('courseDropdown', $courseDropdown);
                     return;
                 }else{
                     $requestData = $_POST;
                      $result = $this->mapp->storeStudentCourseMapping($requestData);
-                     if($result){
-                            header('Location: /report');
-                     }else{
+                    if($result) {
+                           header('Location: /report');
+                    }else{
                         $view = new Views('studentCourseMap/mapping.php');
-                        $view->assign('errors',"There is some error while saving");
-                         //$view->assign('postData',$_POST);
-                         $view->assign('studentdropdown', $studentDropdown);
-                         $view->assign('courseDropdown', $courseDropdown);
-                     }
+                        $view->assign('errors', "There is some error while saving");
+                        //$view->assign('postData',$_POST);
+                        $view->assign('studentdropdown', $studentDropdown);
+                        $view->assign('courseDropdown', $courseDropdown);
+                    }
                 }
                 
             }
@@ -68,10 +66,8 @@ class StudentCourseMappingController
         }
     }
      /**
-     * This method get the student course mapping
-     *
-     *
-     */
+      * This method get the student course mapping
+      */
     public function getStudentCourseSubscription()
     {
       

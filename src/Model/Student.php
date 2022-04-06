@@ -6,10 +6,11 @@ use src\Model\Model;
 
 class Student extends Model
 {
-     public function __construct(){
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
              
-	}
+    }
 
     public function edit($data)
     {
@@ -27,7 +28,7 @@ class Student extends Model
                     );
                $setClause = "fname = :fname, lname = :lname, dob = :dob,phone = :phone,email=:email,country_code=:country_code,updated_at=:updated";
                $whereClause = "id = :id";
-               $this->update("student",$setClause,$bindArray,$whereClause);
+               $this->update("student", $setClause, $bindArray, $whereClause);
                return true;
        
     }
@@ -36,7 +37,7 @@ class Student extends Model
     {
        
               $whereClause= "is_delete=0";
-               $response =$this->readAll('student', $whereClause,[]);
+               $response =$this->readAll('student', $whereClause, []);
             $response = $response->fetchAll();
             return $response;
      
@@ -46,7 +47,7 @@ class Student extends Model
       
 
            $whereClause= "is_delete=0";
-               $response =$this->readAll('student', $whereClause,$request);
+               $response =$this->readAll('student', $whereClause, $request);
             $response = $response->fetchAll(\PDO::FETCH_ASSOC);
             return $response;
     
@@ -59,9 +60,9 @@ class Student extends Model
                 ':id'       =>  $id
                 );
          
-            $response =$this->readById('student',$bindArray, $whereClause,true);
+             $response =$this->readById('student', $bindArray, $whereClause, true);
               $response = $response->fetch(\PDO::FETCH_ASSOC);
-            return $response;
+             return $response;
        
     }
     public  function deleteRecord($id)
@@ -80,7 +81,7 @@ class Student extends Model
     
     public function add($data)
     {
-            $stuRegNo = str_pad(mt_rand(1,999999),6,'0',STR_PAD_LEFT);
+            $stuRegNo = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
             $bindArray = array(
                        ':fname'   =>  $data["fname"],
                        ':lname' =>  $data["lname"],
@@ -95,7 +96,7 @@ class Student extends Model
                     );
                 $fieldList = '`fname`, `lname`,`reg_no`, `dob`,`phone`,`email`,`country_code`,`created_at`,`updated_at`';  
                $valueList =  ":fname,:lname,:regno,:dob,:phone,:email,:country_code,:created_at,:updated_at";
-                $this->insert('student',$fieldList,$bindArray,$valueList);
+                $this->insert('student', $fieldList, $bindArray, $valueList);
       
             return true;
       

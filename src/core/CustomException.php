@@ -6,7 +6,7 @@ use Exception;
 
 class CustomException extends Exception
 {
-   // Redefine the exception so message isn't optional
+    // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, Throwable $previous = null)
     {
         // some code
@@ -18,7 +18,7 @@ class CustomException extends Exception
     // custom string representation of object
     public function __toString()
     {
-       // return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        // return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
         return " {$this->message}\n";
     }
 
@@ -26,6 +26,6 @@ class CustomException extends Exception
     {
        
         $view = new Views('error/error.php');
-         $view->assign('errorMessage',$errorMessage);
+         $view->assign('errorMessage', $errorMessage);
     }
 }
