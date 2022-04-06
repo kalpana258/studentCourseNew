@@ -1,0 +1,12 @@
+{
+      
+       "type": "project",
+       "require":{
+            "vlucas/phpdotenv": "^5.4"
+      },
+       "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    }
+}
