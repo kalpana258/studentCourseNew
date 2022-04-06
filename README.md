@@ -20,7 +20,7 @@ To run this project:
 
 * Run composer install 
 ```
-$ cd ../Student-Course
+$ cd ../studentCourseNew
 $ composer install
 ```
 * Run db migrate to create tables.
